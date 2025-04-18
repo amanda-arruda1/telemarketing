@@ -1,5 +1,5 @@
 # ===========================================
-# CONFIGURAÇÃO INICIAL (DEVE SER A PRIMEIRA PARTE DO CÓDIGO)
+# CONFIGURAÇÃO INICIAL 
 # ===========================================
 import streamlit as st
 st.set_page_config(
@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 # ===========================================
-# IMPORTS (APÓS A CONFIGURAÇÃO INICIAL)
+# IMPORTS 
 # ===========================================
 import pandas as pd
 import seaborn as sns
@@ -23,27 +23,27 @@ custom_params = {"axes.spines.right": False, "axes.spines.top": False}
 sns.set_theme(style="ticks", rc=custom_params)
 
 # ===========================================
-# FUNÇÕES COM CACHE (ATUALIZADAS)
+# FUNÇÕES COM CACHE 
 # ===========================================
-@st.cache_data(show_spinner=True)  # Substitui st.cache
+@st.cache_data(show_spinner=True)  
 def load_data(file_data):
     try:
         return pd.read_csv(file_data, sep=';')
     except:
         return pd.read_excel(file_data)
 
-@st.cache_data  # Substitui st.cache
+@st.cache_data  
 def multiselect_filter(relatorio, col, selecionados):
     if 'all' in selecionados:
         return relatorio
     else:
         return relatorio[relatorio[col].isin(selecionados)].reset_index(drop=True)
 
-@st.cache_data  # Substitui st.cache
+@st.cache_data  
 def convert_df(df):
     return df.to_csv(index=False).encode('utf-8')
 
-@st.cache_data  # Substitui st.cache
+@st.cache_data  
 def to_excel(df):
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:  # Melhor uso do ExcelWriter
@@ -52,7 +52,7 @@ def to_excel(df):
     return processed_data
 
 # ===========================================
-# FUNÇÃO PRINCIPAL (MAIN)
+# FUNÇÃO PRINCIPAL 
 # ===========================================
 def main():
     st.write('# Telemarketing analisys')
